@@ -1,6 +1,8 @@
 ---
+# run_once is not honored in import_role, so we need a when statement here
+# this role should be called only once in the first master
 - name: Calico | Run kube proxy
-  run_once: true
+  when: 'ansible_hostname == groups.oo_first_master.0'
   import_role:
     name: kube_proxy_and_dns
 
